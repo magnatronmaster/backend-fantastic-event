@@ -8,6 +8,11 @@ class SponsorService {
     this.model='Sponsor'
   }
 
+  async getSponsor({ sponsorId }){
+    const sponsor = await mysqlLib.get(this.model, {id_sponsor : sponsorId});
+    return sponsor || [];
+  }
+
   async getSposors(){
     const sponsors = await mysqlLib.getAll(this.model);
     return sponsors || [];
