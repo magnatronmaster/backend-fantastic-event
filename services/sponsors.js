@@ -38,6 +38,11 @@ class SponsorService {
     const updateSponsor = await mysqlLib.update(this.model, sponsor, {id_sponsor : sponsorId});
     return updateSponsor || [];
   }
+
+  async deleteSponsor({sponsorId}){
+    const deleteSponsor = await mysqlLib.delete(this.model, {id_sponsor : sponsorId})
+    return deleteSponsor || [];
+  }
 }
 
 module.exports = SponsorService;

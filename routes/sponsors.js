@@ -62,7 +62,22 @@ function usersApi(app) {
     } catch (error) {
       console.log(error);
     }
-  })
+  });
+
+  router.delete('/:sponsorId', async (req, res) => {
+    const { sponsorId } = req.params;
+    try {
+      const deletedSponsor = await sponsorService.deleteSponsor({
+        sponsorId
+      });
+      res.status(201).json({
+        error: false,
+        data: deletedSponsor,
+      });
+    } catch (error) {
+      return error;
+    }
+  });
 };
 
 module.exports = usersApi;
