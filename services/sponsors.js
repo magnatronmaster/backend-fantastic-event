@@ -1,5 +1,5 @@
 const { nanoid } = require('nanoid');
-const MysqlLib = require('../lib/repository')
+const MysqlLib = require('../lib/repository/MysqlLib')
 
 const mysqlLib = new MysqlLib;
 
