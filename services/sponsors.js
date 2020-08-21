@@ -7,6 +7,12 @@ class SponsorService {
   constructor(){
     this.model='Sponsor'
   }
+
+  async getSposors(){
+    const sponsors = await mysqlLib.getAll(this.model);
+    return sponsors || [];
+  }
+
   /**
    * Create a user, this operate over two models
    * to implement a security layer at querys login

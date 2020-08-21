@@ -6,6 +6,18 @@ function usersApi(app) {
   const router = express.Router();
   app.use('/api/sponsors', router);
 
+  router.get('/', async(req, res) => {
+    try {
+      const movies = await sponsorService.getSposors();
+      res.status(200).json({
+        error: false,
+        data: movies,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  })
+
   router.post('/', async (req, res) => {
     const { body: sponsor } = req;
     try {
