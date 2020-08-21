@@ -1,8 +1,11 @@
-const Sponsor = require('../lib/models/sponsors');
 const { nanoid } = require('nanoid');
+const MysqlLib = require('../lib/repository')
+
+const mysqlLib = new MysqlLib;
 
 class SponsorService {
-  constructor() {
+  constructor(){
+    this.model='Sponsor'
   }
   /**
    * Create a user, this operate over two models
@@ -10,11 +13,7 @@ class SponsorService {
    */
   async createSponsor({ sponsor }) {
     const { id_sponsor, name_sponsor, url_sponsor, logo_sponsor } = sponsor;
-    console.log(name_sponsor)
-    console.log(url_sponsor)
-    console.log(logo_sponsor)
-
-    const createSponsorId = await Sponsor.create({
+    const createSponsorId = await mysqlLib.create(this.model,{
       id_sponsor: id_sponsor || nanoid(),
       name_sponsor,
       url_sponsor,
