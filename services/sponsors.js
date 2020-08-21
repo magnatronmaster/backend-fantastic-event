@@ -1,4 +1,5 @@
-const Sponsor = require('../lib/models/sponsors')
+const Sponsor = require('../lib/models/sponsors');
+const { nanoid } = require('nanoid');
 
 class SponsorService {
   constructor() {
@@ -8,13 +9,13 @@ class SponsorService {
    * to implement a security layer at querys login
    */
   async createSponsor({ sponsor }) {
-    const { name_sponsor, url_sponsor, logo_sponsor } = sponsor;
+    const { id_sponsor, name_sponsor, url_sponsor, logo_sponsor } = sponsor;
     console.log(name_sponsor)
     console.log(url_sponsor)
     console.log(logo_sponsor)
 
     const createSponsorId = await Sponsor.create({
-      id: 1,
+      id_sponsor: id_sponsor || nanoid(),
       name_sponsor,
       url_sponsor,
       logo_sponsor
