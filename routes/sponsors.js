@@ -2,7 +2,8 @@ const express = require('express');
 const SponsorService = require('../services/sponsors');
 
 const sponsorService = new SponsorService();
-function usersApi(app) {
+
+function sponsorApi(app) {
   const router = express.Router();
   app.use('/api/sponsors', router);
 
@@ -80,4 +81,4 @@ function usersApi(app) {
   });
 };
 
-module.exports = usersApi;
+module.exports = sponsorApi;
