@@ -1,6 +1,5 @@
 const express = require('express');
 const SponsorService = require('../services/sponsors');
-const Sponsor = require('../lib/models/sponsors');
 
 const sponsorService = new SponsorService();
 function usersApi(app) {
@@ -23,7 +22,7 @@ function usersApi(app) {
 
   router.get('/', async(req, res) => {
     try {
-      const sponsors = await sponsorService.getSposors();
+      const sponsors = await sponsorService.getSponsors();
       res.status(200).json({
         error: false,
         data: sponsors,
@@ -47,6 +46,23 @@ function usersApi(app) {
       console.log(error);
     }
   });
+
+  router.put('/:sponsorId', async (req, res) => {
+    const { sponsorId } = req.params;
+    const { body: sponsor } = req;
+    try {
+      const updatedSponsor = await sponsorService.updateSponsor({
+        sponsorId,
+        sponsor,
+      });
+      res.status(201).json({
+        error: false,
+        data: updatedSponsor,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  })
 };
 
 module.exports = usersApi;

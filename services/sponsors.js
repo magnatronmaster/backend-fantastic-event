@@ -13,7 +13,7 @@ class SponsorService {
     return sponsor || [];
   }
 
-  async getSposors(){
+  async getSponsors(){
     const sponsors = await mysqlLib.getAll(this.model);
     return sponsors || [];
   }
@@ -32,6 +32,11 @@ class SponsorService {
     });
 
     return createSponsorId;
+  }
+
+  async updateSponsor({ sponsorId, sponsor }){
+    const updateSponsor = await mysqlLib.update(this.model, sponsor, {id_sponsor : sponsorId});
+    return updateSponsor || [];
   }
 }
 
