@@ -1,25 +1,26 @@
-const MysqlLib = require('../lib/mysql');
+const Sponsor = require('../lib/models/sponsors')
 
 class SponsorService {
   constructor() {
-    this.SponsorModel = 'Sponsor';
-    this.mysqlDb = new MysqlLib();
   }
-
   /**
    * Create a user, this operate over two models
    * to implement a security layer at querys login
    */
   async createSponsor({ sponsor }) {
-    console.log(sponsor)
     const { name_sponsor, url_sponsor, logo_sponsor } = sponsor;
-    const createUserId = await this.mysqlDb.create(this.SponsorModel, {
+    console.log(name_sponsor)
+    console.log(url_sponsor)
+    console.log(logo_sponsor)
+
+    const createSponsorId = await Sponsor.create({
+      id: 1,
       name_sponsor,
       url_sponsor,
       logo_sponsor
     });
 
-    return createUserId;
+    return createSponsorId;
   }
 }
 

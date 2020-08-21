@@ -8,7 +8,6 @@ function usersApi(app) {
 
   router.post('/', async (req, res) => {
     const { body: sponsor } = req;
-    console.log(sponsor)
     try {
       const createdCategory = await sponsorService.createSponsor({
         sponsor,
@@ -18,7 +17,7 @@ function usersApi(app) {
         data: createdCategory,
       });
     } catch (error) {
-      next(error);
+      console.log(error);
     }
   });
 };

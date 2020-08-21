@@ -3,10 +3,6 @@ const bodyParser = require('body-parser');
 const sponsors = require('./routes/sponsors');
 const { config } = require('./config');
 
-//Conection DB
-const MysqlLib = require('./lib/mysql')
-const mysqlLib= new MysqlLib();
-
 const app = express();
 // body parser
 app.use(bodyParser.json());
