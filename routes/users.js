@@ -1,6 +1,5 @@
 const express = require('express');
 const UsersService = require('../services/user');
-const { User } = require('../lib/sequelize');
 
 function UsersApi(app) {
   const router = express.Router();

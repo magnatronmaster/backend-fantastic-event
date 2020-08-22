@@ -1,9 +1,9 @@
 const bcrypt = require('bcrypt');
 const { v4: uuidv4 } = require('uuid');
-const MysqlLib = require('../lib/mysql');
+const MysqlLib = require('../lib/repository/MysqlLib');
 
 //Model
-const { User } = require('../lib/sequelize');
+const User = require('../lib/models/users');
 
 class UsersService {
   constructor() {
@@ -22,8 +22,9 @@ class UsersService {
   async CreateUser({ user }) {
     try {
       const { email_user, password_user } = user;
+      console.log(user);
       const hashedPassword = await bcrypt.hash(password_user, 10);
-      const result = await this.mySql.Create(User, {
+      const result = await this.mySql.create(User, {
         email_user,
         password_user: hashedPassword,
         id_user: uuidv4(),
