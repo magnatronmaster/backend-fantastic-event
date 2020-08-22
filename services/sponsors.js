@@ -1,10 +1,12 @@
+const { Sequelize } = require('sequelize');
 const { nanoid } = require('nanoid');
 const MysqlLib = require('../lib/repository/MysqlLib');
 const Sponsor = require('../lib/models/sponsors');
+const sequelize = require('../lib/repository/connection');
 
 class SponsorService {
   constructor(){
-    this.model= Sponsor;
+    this.model= Sponsor(sequelize, Sequelize);
     this.mysqlLib = new MysqlLib;
   }
 
