@@ -1,12 +1,9 @@
-const { Sequelize } = require('sequelize');
-const { nanoid } = require('nanoid');
 const MysqlLib = require('../lib/repository/MysqlLib');
 const Sponsor = require('../lib/models/sponsors');
-const sequelize = require('../lib/repository/connection');
 
 class SponsorService {
   constructor(){
-    this.model= Sponsor(sequelize, Sequelize);
+    this.model= Sponsor;
     this.mysqlLib = new MysqlLib;
   }
 
@@ -27,7 +24,6 @@ class SponsorService {
   async createSponsor({ sponsor }) {
     const { id_sponsor, name_sponsor, url_sponsor, logo_sponsor } = sponsor;
     const createSponsorId = await this.mysqlLib.create(this.model,{
-      id_sponsor: id_sponsor || nanoid(),
       name_sponsor,
       url_sponsor,
       logo_sponsor
