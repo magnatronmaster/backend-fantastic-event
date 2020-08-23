@@ -17,11 +17,10 @@ class SponsorService {
   }
 
   /**
-   * Create a user, this operate over two models
-   * to implement a security layer at querys login
+   * Create a Sponsor
    */
   async createSponsor({ sponsor }) {
-    const { id_sponsor, name_sponsor, url_sponsor, logo_sponsor } = sponsor;
+    const { name_sponsor, url_sponsor, logo_sponsor } = sponsor;
     const createSponsorId = await this.mysqlLib.create({
       name_sponsor,
       url_sponsor,
