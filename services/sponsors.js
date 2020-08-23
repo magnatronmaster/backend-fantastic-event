@@ -1,19 +1,18 @@
 const MysqlLib = require('../lib/repository/MysqlLib');
-const Sponsor = require('../lib/models/sponsors');
+const Sponsor = require('../lib/models/sponsor');
 
 class SponsorService {
   constructor(){
-    this.model= Sponsor;
-    this.mysqlLib = new MysqlLib;
+    this.mysqlLib = new MysqlLib(Sponsor);
   }
 
   async getSponsor({ sponsorId }){
-    const sponsor = await this.mysqlLib.get(this.model, {id_sponsor : sponsorId});
+    const sponsor = await this.mysqlLib.get({id_sponsor : sponsorId});
     return sponsor || [];
   }
 
   async getSponsors(){
-    const sponsors = await this.mysqlLib.getAll(this.model);
+    const sponsors = await this.mysqlLib.getAll();
     return sponsors || [];
   }
 
@@ -23,7 +22,7 @@ class SponsorService {
    */
   async createSponsor({ sponsor }) {
     const { id_sponsor, name_sponsor, url_sponsor, logo_sponsor } = sponsor;
-    const createSponsorId = await this.mysqlLib.create(this.model,{
+    const createSponsorId = await this.mysqlLib.create({
       name_sponsor,
       url_sponsor,
       logo_sponsor
@@ -33,12 +32,12 @@ class SponsorService {
   }
 
   async updateSponsor({ sponsorId, sponsor }){
-    const updateSponsor = await this.mysqlLib.update(this.model, sponsor, {id_sponsor : sponsorId});
+    const updateSponsor = await this.mysqlLib.update(sponsor, {id_sponsor : sponsorId});
     return updateSponsor || [];
   }
 
   async deleteSponsor({sponsorId}){
-    const deleteSponsor = await this.mysqlLib.delete(this.model, {id_sponsor : sponsorId})
+    const deleteSponsor = await this.mysqlLib.delete({id_sponsor : sponsorId})
     return deleteSponsor || [];
   }
 }
