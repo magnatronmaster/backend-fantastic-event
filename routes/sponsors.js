@@ -1,12 +1,11 @@
 const express = require('express');
-const SponsorService = require('../services/sponsors');
+const SponsorService = require('../services/sponsor');
 
 const sponsorService = new SponsorService();
 
 function sponsorApi(app) {
   const router = express.Router();
   app.use('/api/sponsors', router);
-
 
   router.get('/:sponsorId', async (req, res) => {
     try {
