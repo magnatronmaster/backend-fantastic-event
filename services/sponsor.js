@@ -21,23 +21,23 @@ class SponsorService {
    */
   async createSponsor({ sponsor }) {
     const { name_sponsor, url_sponsor, logo_sponsor } = sponsor;
-    const createSponsorId = await this.mysqlLib.create({
+    const createdSponsorId = await this.mysqlLib.create({
       name_sponsor,
       url_sponsor,
       logo_sponsor
     });
 
-    return createSponsorId;
+    return createdSponsorId;
   }
 
   async updateSponsor({ sponsorId, sponsor }){
-    const updateSponsor = await this.mysqlLib.update(sponsor, {id_sponsor : sponsorId});
-    return updateSponsor || [];
+    const updatedSponsor = await this.mysqlLib.update(sponsor, {id_sponsor : sponsorId});
+    return updatedSponsor || [];
   }
 
   async deleteSponsor({sponsorId}){
-    const deleteSponsor = await this.mysqlLib.delete({id_sponsor : sponsorId})
-    return deleteSponsor || [];
+    const deletedSponsor = await this.mysqlLib.delete({id_sponsor : sponsorId})
+    return deletedSponsor || [];
   }
 }
 
