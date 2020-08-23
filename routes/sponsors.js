@@ -35,12 +35,12 @@ function sponsorApi(app) {
   router.post('/', async (req, res) => {
     const { body: sponsor } = req;
     try {
-      const createdCategory = await sponsorService.createSponsor({
+      const createdSponsor = await sponsorService.createSponsor({
         sponsor,
       });
       res.status(201).json({
         error: false,
-        data: createdCategory,
+        data: createdSponsor,
       });
     } catch (error) {
       console.log(error);
