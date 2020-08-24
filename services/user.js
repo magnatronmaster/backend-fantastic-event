@@ -3,11 +3,16 @@ const { v4: uuidv4 } = require('uuid');
 const MysqlLib = require('../lib/repository/MysqlLib');
 
 //Model
-const User = require('../lib/models/users');
+const User = require('../lib/models/user');
 
 class UsersService {
   constructor() {
     this.mySql = new MysqlLib();
+  }
+
+  async GetUserByEmail({ email_user }) {
+    const user = await this.mysqlLib.get({ email_user: email_user });
+    return user || [];
   }
 
   async GetUser() {
