@@ -1,16 +1,34 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const sponsors = require('./routes/sponsors');
+
+const sponsorsApi = require('./routes/sponsors');
+const usersApi = require('./routes/users');
+const organizationsApi = require('./routes/organizations');
+const authApi = require('./routes/auth');
+
 const { config } = require('./config');
 
-const app = express();
+const {
+  logErrors,
+  wrapErrors,
+  errorHandler,
+} = require('./utils/middleware/errorHandlers');
 
+const app = express();
 // body parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // routes
-sponsors(app);
+authApi(app);
+sponsorsApi(app);
+usersApi(app);
+organizationsApi(app);
+
+// Errors middleware
+app.use(logErrors);
+app.use(wrapErrors);
+app.use(errorHandler);
 
 app.listen(config.port, () => {
   console.log(`Servidor activo en http://localhost:${config.port}`);

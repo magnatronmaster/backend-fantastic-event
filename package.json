@@ -4,14 +4,19 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "migration": "node lib/migrations/index.js",
     "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Julian Builes, Luis Lazcano",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mysql2": "^2.1.0",
+    "sequelize": "^6.3.4",
+    "uuid": "^8.3.0"
   }
 }
