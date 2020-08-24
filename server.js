@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const sponsors = require('./routes/sponsors');
 const users = require('./routes/users');
+const organizations = require('./routes/organizations');
+
 const { config } = require('./config');
 
 const app = express();
@@ -12,6 +14,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // routes
 sponsors(app);
 users(app);
+
+organizations(app);
 
 app.listen(config.port, () => {
   console.log(`Servidor activo en http://localhost:${config.port}`);
