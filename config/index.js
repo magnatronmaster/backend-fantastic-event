@@ -7,7 +7,7 @@ const config = {
   dbName: process.env.DB_NAME,
   dbHost: process.env.DB_HOST,
   dbDialect: process.env.DB_DIALECT,
-  dbPort: process.env.DB_PORT,
+  dbPort: process.env.DB_PORT || 3306,
 };
 
 module.exports = { config };
