@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "migration": "node lib/migrations/index.js",
-    "start": "nodemon server.js",
+    "dev": "nodemon server.js",
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Julian Builes, Luis Lazcano",
