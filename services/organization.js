@@ -2,16 +2,16 @@ const MysqlLib = require('../lib/repository/MysqlLib');
 const Organization = require('../lib/models/organization');
 
 class OrganizationService {
-  constructor(){
+  constructor() {
     this.mysqlLib = new MysqlLib(Organization);
   }
 
-  async getOrganization({ organizationId }){
-    const organization = await this.mysqlLib.get({id_org : organizationId});
+  async getOrganization({ id_org }) {
+    const organization = await this.mysqlLib.get(id_org);
     return organization || [];
   }
 
-  async getOrganizations(){
+  async getOrganizations() {
     const organizations = await this.mysqlLib.getAll();
     return organizations || [];
   }
@@ -21,19 +21,23 @@ class OrganizationService {
     const createdOrganizationId = await this.mysqlLib.create({
       name_org,
       description_org,
-      idUser
+      idUser,
     });
 
     return createdOrganizationId;
   }
 
-  async updateOrganization({ organizationId, organization }){
-    const updatedOrganization = await this.mysqlLib.update(organization, {id_org : organizationId});
+  async updateOrganization({ organizationId, organization }) {
+    const updatedOrganization = await this.mysqlLib.update(organization, {
+      id_org: organizationId,
+    });
     return updatedOrganization || [];
   }
 
-  async deleteOrganization({organizationId}){
-    const deletedOrganization = await this.mysqlLib.delete({id_org : organizationId})
+  async deleteOrganization({ organizationId }) {
+    const deletedOrganization = await this.mysqlLib.delete({
+      id_org: organizationId,
+    });
     return deletedOrganization || [];
   }
 }
