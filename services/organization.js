@@ -1,5 +1,6 @@
 const MysqlLib = require('../lib/repository/MysqlLib');
 const Organization = require('../lib/models/organization');
+const { isBoom } = require('@hapi/boom');
 
 class OrganizationService {
   constructor() {
@@ -18,13 +19,13 @@ class OrganizationService {
 
   async createOrganization({ organization }) {
     const { name_org, description_org, idUser } = organization;
-    const createdOrganizationId = await this.mysqlLib.create({
+    const result = await this.mysqlLib.create({
       name_org,
       description_org,
       idUser,
     });
 
-    return createdOrganizationId;
+    return result.id_org;
   }
 
   async updateOrganization({ organizationId, organization }) {

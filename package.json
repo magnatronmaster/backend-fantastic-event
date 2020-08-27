@@ -5,13 +5,14 @@
   "main": "server.js",
   "scripts": {
     "migration": "node lib/migrations/index.js",
-    "dev": "DEBUG=app:* nodemon index",
-    "start": "NODE_ENV=production node index",
+    "dev": "DEBUG=app:* nodemon server.js",
+    "start": "NODE_ENV=production node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Julian Builes, Luis Lazcano",
   "license": "MIT",
   "dependencies": {
+    "@google-cloud/storage": "^5.3.0",
     "@hapi/boom": "^9.1.0",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
