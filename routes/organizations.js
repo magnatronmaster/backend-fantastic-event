@@ -60,13 +60,12 @@ function organizationApi(app) {
     async (req, res, next) => {
       const { body: organization } = req;
       try {
-        const createdOrganization = await organizationService.createOrganization(
-          {
-            organization,
-          }
-        );
+        const idOrg = await organizationService.createOrganization({
+          organization,
+        });
+        if (idOrg.isBoom) next(idOrg);
         res.status(201).json({
-          data: createdOrganization,
+          data: { idOrg },
           message: 'Organization created',
         });
       } catch (error) {
