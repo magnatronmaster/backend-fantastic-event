@@ -1,3 +1,4 @@
+![alt text](https://github.com/magnatronmaster/frontend-fantastic-event/blob/master/src/assets/images/logo.png "logo")
 # Fantastic-event - Api
 Fantastic-event - Api is a REST Full API to manage the backend operations for Fantastic-event app.
 
