@@ -6,6 +6,7 @@ const sponsorsApi = require('./routes/sponsors');
 const usersApi = require('./routes/users');
 const organizationsApi = require('./routes/organizations');
 const authApi = require('./routes/auth');
+const eventsApi = require('./routes/events');
 
 const { config } = require('./config');
 
@@ -28,6 +29,7 @@ authApi(app);
 sponsorsApi(app);
 usersApi(app);
 organizationsApi(app);
+eventsApi(app);
 
 // Errors middleware
 app.use(logErrors);
