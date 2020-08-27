@@ -44,6 +44,22 @@ https://documenter.getpostman.com/view/6233282/TVCZbBos
 
 [Entities and fields](https://drive.google.com/file/d/1RvLGKdSZCWmE9zasNJ76j9FUte8qVLrK/view?usp=sharing)
 
+## Built with 🛠️
+
+- [JavaScript](https://www.javascript.com/) - Programming Language
+- [NodeJs](https://https://nodejs.org/en//) - is a server-side JavaScript environment
+- [Express](http://expressjs.com/) - framework for Node.js
+- [Mysql](https://www.mysql.com/) - Database
+- [Sequelize](https://sequelize.org/master/) - Sequelize is a promise-based Node.js ORM
+- [Passport](http://www.passportjs.org/) - Simple, unobtrusive authentication for Node.js
+- [Postman](https://www.postman.com/) - is a collaboration platform for API development.
+- [NPM](https://www.npmjs.com/) - Dependency manager
 
 
+## Authors ✒️
+- **Julian Builes** - _Fullstack Developer_ - [juanchobuiles](https://github.com/juanchobuiles)
+- **Luis Lazcano** - _Backend Developer_ - [Luis-Lazcano](https://github.com/Luis-Lazcano)
 
+## License 📄
+
+This project is under the License (MIT)
