@@ -13,12 +13,13 @@ passport.use(
   new BasicStrategy(async function (email, password, cb) {
     const userService = new UserService();
     try {
-      const user = await userService.GetUserByEmail({ email });
+      const user = await userService.GetUserByEmail(email);
+
       if (!user) {
         return cb(boom.unauthorized(), false);
       }
 
-      if (!(await bcrypt.compare(password, user.password))) {
+      if (!(await bcrypt.compare(password, user.password_user))) {
         return cb(boom.unauthorized(), false);
       }
 

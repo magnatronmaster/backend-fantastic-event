@@ -1,15 +1,23 @@
-const joi = require('joi');
+const Joi = require('joi');
 
-const idUserSchema = joi.string().guid({ version: ['uuidv4'] });
-const emailSchema = joi.string().email();
-const passwordSchema = joi.string().pattern(new RegExp('^[a-zA-Z0-9]{8,30}$'));
+const id_userSchema = Joi.string().guid({ version: ['uuidv4'] });
 
-const createUserSchema = joi.object({
-  email_user: emailSchema.required(),
-  password_user: passwordSchema.required(),
+const email_userSchema = Joi.string().email();
+const password_userSchema = Joi.string().pattern(
+  new RegExp('^[a-zA-Z0-9]{8,30}$')
+);
+
+const createUserSchema = Joi.object({
+  email_user: email_userSchema.required(),
+  password_user: password_userSchema.required(),
+});
+
+const idUserShcema = Joi.object({
+  id_user: id_userSchema.required(),
 });
 
 module.exports = {
-  idUserSchema,
+  id_userSchema,
   createUserSchema,
+  idUserShcema,
 };
