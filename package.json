@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "migration": "node lib/migrations/index.js",
-    "start": "nodemon server.js",
+    "dev": "nodemon server.js",
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Julian Builes, Luis Lazcano",
@@ -16,11 +17,12 @@
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "joi": "^17.2.1",
     "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.2",
     "mysql2": "^2.1.0",
     "passport": "^0.4.1",
     "passport-http": "^0.3.0",
-    "sequelize": "^6.3.4",
-    "uuid": "^8.3.0"
+    "sequelize": "^6.3.4"
   }
 }

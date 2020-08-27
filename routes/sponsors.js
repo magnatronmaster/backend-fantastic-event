@@ -1,5 +1,6 @@
 const express = require('express');
 const SponsorService = require('../services/sponsor');
+const { upload } = require('../utils/tools/saveImages')
 
 const sponsorService = new SponsorService();
 
@@ -32,7 +33,7 @@ function sponsorApi(app) {
     }
   });
 
-  router.post('/', async (req, res) => {
+  router.post('/', upload.single('file') ,async (req, res) => {
     const { body: sponsor } = req;
     try {
       const createdSponsor = await sponsorService.createSponsor({
