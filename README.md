@@ -35,7 +35,7 @@ _If you want to initialize the server in production mode, run the following comm
 npm run start
 ```
 ## Api endpoints
-__Complete documentation__
+_Complete documentation_
 https://documenter.getpostman.com/view/6233282/TVCZbBos
 
 ## Entities and relations
