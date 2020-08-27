@@ -1,6 +1,6 @@
 const express = require('express');
 const SponsorService = require('../services/sponsor');
-const { upload } = require('../utils/tools/saveImages')
+const { multer, sendUploadToGCS, } = require('../utils/middleware/saveImages')
 
 const sponsorService = new SponsorService();
 
@@ -33,8 +33,18 @@ function sponsorApi(app) {
     }
   });
 
-  router.post('/', upload.single('file') ,async (req, res) => {
+  router.post('/',
+    multer.single('logo_sponsor'),
+    sendUploadToGCS,
+    async (req, res, next) => {
     const { body: sponsor } = req;
+
+    // Was an image uploaded? If so, we'll use its public URL
+    // in cloud storage.
+    if (req.file && req.file.cloudStoragePublicUrl) {
+      sponsor.logo_sponsor = req.file.cloudStoragePublicUrl;
+    }
+
     try {
       const createdSponsor = await sponsorService.createSponsor({
         sponsor,
