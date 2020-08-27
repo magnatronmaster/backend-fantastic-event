@@ -10,6 +10,7 @@ const config = {
   dbPort: process.env.DB_PORT || 3306,
   googleCloudProject: process.env.GOOGLE_CLOUD_PROJECT,
   googleCloudBucket: process.env.GOOGLE_CLOUD_BUCKET,
+  authJwtSecret: process.env.AUTH_JWT_SECRET,
 };
 
 module.exports = { config };

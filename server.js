@@ -1,10 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const multer = require('multer');
 
 const sponsorsApi = require('./routes/sponsors');
 const usersApi = require('./routes/users');
 const organizationsApi = require('./routes/organizations');
 const authApi = require('./routes/auth');
+const eventsApi = require('./routes/events');
 
 const { config } = require('./config');
 
@@ -14,16 +16,20 @@ const {
   errorHandler,
 } = require('./utils/middleware/errorHandlers');
 
+const upload = multer();
 const app = express();
+
 // body parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(upload.array());
 
 // routes
 authApi(app);
 sponsorsApi(app);
 usersApi(app);
 organizationsApi(app);
+eventsApi(app);
 
 // Errors middleware
 app.use(logErrors);

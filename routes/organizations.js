@@ -3,81 +3,121 @@ const OrganizationService = require('../services/organization');
 
 const organizationService = new OrganizationService();
 
+//Middleware
+const validationHandler = require('../utils/middleware/validationHandler');
+
+//Schemas
+const {
+  createOrganizationSchema,
+  updateOrganizationSchema,
+  idOrganizationShcema,
+} = require('../utils/schemas/organization');
+const { idUserShcema } = require('../utils/schemas/user');
+
 function organizationApi(app) {
   const router = express.Router();
-  app.use('/api/organization', router);
+  app.use('/api/organization/', router);
 
-  router.get('/:organizationId', async(req, res) => {
-    try {
-      const { organizationId } = req.params;
-      const organization = await organizationService.getOrganization({ organizationId });
-      res.status(200).json({
-        error: false,
-        data: organization,
-      });
-    } catch (error) {
-      console.log(error)
+  router.get(
+    '/:id_org',
+    validationHandler(idOrganizationShcema, 'params'),
+    async (req, res, next) => {
+      try {
+        const { id_org } = req.params;
+        const organization = await organizationService.getOrganization(id_org);
+        res.status(200).json({
+          data: organization,
+          message: 'Organization listed',
+        });
+      } catch (error) {
+        next(error);
+      }
     }
-  });
+  );
 
-  router.get('/', async(req, res) => {
-    try {
-      const organizations = await organizationService.getOrganizations();
-      res.status(200).json({
-        error: false,
-        data: organizations,
-      });
-    } catch (error) {
-      console.log(error);
+  router.get(
+    '/',
+    validationHandler(idUserShcema, 'query'),
+    async (req, res, next) => {
+      const { id_user } = req.query;
+      try {
+        const organizations = await organizationService.getOrganizations({
+          idUser: id_user,
+        });
+        res.status(200).json({
+          data: organizations,
+          message: 'Organizations listed',
+        });
+      } catch (error) {
+        next(error);
+      }
     }
-  });
+  );
 
-  router.post('/', async (req, res) => {
-    const { body: organization } = req;
-    try {
-      const createdOrganization = await organizationService.createOrganization({
-        organization,
-      });
-      res.status(201).json({
-        error: false,
-        data: createdOrganization,
-      });
-    } catch (error) {
-      console.log(error);
+  router.post(
+    '/',
+    validationHandler(createOrganizationSchema),
+    async (req, res, next) => {
+      const { body: organization } = req;
+      try {
+        const idOrg = await organizationService.createOrganization({
+          organization,
+        });
+        if (idOrg.isBoom) next(idOrg);
+        res.status(201).json({
+          data: { idOrg },
+          message: 'Organization created',
+        });
+      } catch (error) {
+        next(error);
+      }
     }
-  });
+  );
 
-  router.put('/:organizationId', async (req, res) => {
-    const { organizationId } = req.params;
-    const { body: organization } = req;
-    try {
-      const updatedOrganization = await organizationService.updateOrganization({
-        organizationId,
-        organization,
-      });
-      res.status(201).json({
-        error: false,
-        data: updatedOrganization,
-      });
-    } catch (error) {
-      console.log(error);
+  router.patch(
+    '/',
+    validationHandler(updateOrganizationSchema),
+    validationHandler(idOrganizationShcema, 'query'),
+    async (req, res, next) => {
+      const { id_org } = req.query;
+      const { body: organization } = req;
+      try {
+        const updatedOrganization = await organizationService.updateOrganization(
+          {
+            organizationId: id_org,
+            organization,
+          }
+        );
+        res.status(201).json({
+          data: updatedOrganization,
+          message: 'Organization updated',
+        });
+      } catch (error) {
+        next(error);
+      }
     }
-  });
+  );
 
-  router.delete('/:organizationId', async (req, res) => {
-    const { organizationId } = req.params;
-    try {
-      const deletedOrganization = await organizationService.deleteOrganization({
-        organizationId
-      });
-      res.status(201).json({
-        error: false,
-        data: deletedOrganization,
-      });
-    } catch (error) {
-      return error;
+  router.delete(
+    '/:id_org',
+    validationHandler(idOrganizationShcema, 'params'),
+    async (req, res, next) => {
+      const { id_org } = req.params;
+      try {
+        const deletedOrganization = await organizationService.deleteOrganization(
+          {
+            organizationId: id_org,
+          }
+        );
+        res.status(201).json({
+          data: deletedOrganization,
+          message: 'Organization deleted',
+        });
+      } catch (error) {
+        next(error);
+      }
     }
-  });
-};
+  );
+}
 
 module.exports = organizationApi;
