@@ -1,5 +1,4 @@
-const {Storage} = require('@google-cloud/storage');
-const Multer = require('multer');
+const { Storage } = require('@google-cloud/storage');
 const path = require('path');
 const { config } = require('../../config');
 
@@ -8,18 +7,11 @@ const storage = new Storage({
   projectId: 'event-app-72617',
 });
 
-const multer = Multer({
-  storage: Multer.MemoryStorage,
-  limits: {
-    fileSize: 1 * 1024 * 1024 // no larger than 1mb
-  }
-});
-
-function sendUploadToGCS (req, res, next) {
+function sendUploadToGCS(req, res, next) {
   if (!req.file) {
     return next();
   }
-  const bucket = storage.bucket(config.googleCloudBucket)
+  const bucket = storage.bucket(config.googleCloudBucket);
   // storage.getBuckets().then(x => console.log(x))
 
   const gcsname = Date.now() + req.file.originalname;
@@ -27,8 +19,8 @@ function sendUploadToGCS (req, res, next) {
 
   const stream = file.createWriteStream({
     metadata: {
-      contentType: req.file.mimetype
-    }
+      contentType: req.file.mimetype,
+    },
   });
 
   stream.on('error', (err) => {
@@ -47,12 +39,11 @@ function sendUploadToGCS (req, res, next) {
   stream.end(req.file.buffer);
 }
 
-function getPublicUrl (filename) {
+function getPublicUrl(filename) {
   return `https://storage.googleapis.com/${config.googleCloudBucket}/${filename}`;
 }
 
 module.exports = {
-  multer,
   sendUploadToGCS,
-  getPublicUrl
+  getPublicUrl,
 };
