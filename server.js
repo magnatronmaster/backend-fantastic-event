@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const multer = require('multer');
 
 const sponsorsApi = require('./routes/sponsors');
 const usersApi = require('./routes/users');
