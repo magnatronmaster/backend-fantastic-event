@@ -8,11 +8,11 @@ const UserService = require('../services/user');
 
 //Middleware
 const validationHandler = require('../utils/middleware/validationHandler');
+const multer = require('../utils/middleware/multer');
 
-const { idSchema, createUserSchema } = require('../utils/schemas/user');
+const { createUserSchema } = require('../utils/schemas/user');
 
 const { config } = require('../config');
-const { createSchema } = require('../lib/repository/connection');
 
 //Basic Strategy
 require('../utils/auth/strategies/basic');
@@ -52,25 +52,26 @@ function AuthApi(app) {
   });
 
   //Register
-  router.post('/sign-up/', validationHandler(createUserSchema), async function (
-    req,
-    res,
-    next
-  ) {
-    const { body: user } = req;
-    try {
-      const id_user = await userService.CreateUser({ user });
+  router.post(
+    '/sign-up/',
+    multer.single(),
+    validationHandler(createUserSchema),
+    async function (req, res, next) {
+      const { body: user } = req;
+      try {
+        const id_user = await userService.CreateUser({ user });
 
-      if (id_user.isBoom) throw id_user;
+        if (id_user.isBoom) throw id_user;
 
-      res.status(201).json({
-        data: id_user,
-        message: 'user created',
-      });
-    } catch (error) {
-      next(error);
+        res.status(201).json({
+          data: id_user,
+          message: 'user created',
+        });
+      } catch (error) {
+        next(error);
+      }
     }
-  });
+  );
 }
 
 module.exports = AuthApi;
