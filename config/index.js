@@ -11,6 +11,10 @@ const config = {
   googleCloudProject: process.env.GOOGLE_CLOUD_PROJECT,
   googleCloudBucket: process.env.GOOGLE_CLOUD_BUCKET,
   authJwtSecret: process.env.AUTH_JWT_SECRET,
+  googleClientId: process.env.GOOGLE_CLIENT_ID,
+  googleClientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  googleRefreshToken: process.env.GOOGLE_REFRESH_TOKEN,
+  googleAccessToken: process.env.GOOGLE_ACCESS_TOKEN,
 };
 
 module.exports = { config };
