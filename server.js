@@ -16,13 +16,11 @@ const {
   errorHandler,
 } = require('./utils/middleware/errorHandlers');
 
-const upload = multer();
 const app = express();
 
 // body parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(upload.array());
 
 // routes
 authApi(app);
