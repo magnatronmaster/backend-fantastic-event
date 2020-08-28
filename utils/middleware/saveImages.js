@@ -1,4 +1,5 @@
 const { Storage } = require('@google-cloud/storage');
+const boom = require('@hapi/boom');
 const path = require('path');
 const { config } = require('../../config');
 
@@ -25,7 +26,7 @@ function sendUploadToGCS(req, res, next) {
 
   stream.on('error', (err) => {
     req.file.cloudStorageError = err;
-    next(err);
+    next(boom.badRequest(err));
   });
 
   stream.on('finish', () => {
