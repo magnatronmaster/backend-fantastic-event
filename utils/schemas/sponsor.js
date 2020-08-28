@@ -7,7 +7,6 @@ const url_sponsorSchema = Joi.string().uri();
 const logo_sponsorSchema = Joi.string().min(3);
 
 const createSponsorSchema = Joi.object({
-  id_sponsor: id_sponsorSchema.required(),
   name_sponsor: name_sponsorSchema.required(),
   url_sponsor: url_sponsorSchema,
   logo_sponsor: logo_sponsorSchema,

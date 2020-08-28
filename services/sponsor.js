@@ -21,8 +21,7 @@ class SponsorService {
    */
   async createSponsor({ sponsor }) {
     const result = await this.mysqlLib.create(sponsor);
-
-    return result.id_sponsor;
+    return result.isBoom ? result : result.id_sponsor;
   }
 
   async updateSponsor(id_sponsor, sponsor) {
