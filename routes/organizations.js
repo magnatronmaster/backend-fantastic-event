@@ -1,10 +1,11 @@
 const express = require('express');
-const OrganizationService = require('../services/organization');
 
-const organizationService = new OrganizationService();
+//Services
+const OrganizationService = require('../services/organization');
 
 //Middleware
 const validationHandler = require('../utils/middleware/validationHandler');
+const multer = require('../utils/middleware/multer');
 
 //Schemas
 const {
@@ -16,7 +17,9 @@ const { idUserShcema } = require('../utils/schemas/user');
 
 function organizationApi(app) {
   const router = express.Router();
+
   app.use('/api/organization/', router);
+  const organizationService = new OrganizationService();
 
   router.get(
     '/:id_org',
@@ -56,6 +59,7 @@ function organizationApi(app) {
 
   router.post(
     '/',
+    multer.single(),
     validationHandler(createOrganizationSchema),
     async (req, res, next) => {
       const { body: organization } = req;
@@ -76,6 +80,7 @@ function organizationApi(app) {
 
   router.patch(
     '/',
+    multer.single(),
     validationHandler(updateOrganizationSchema),
     validationHandler(idOrganizationShcema, 'query'),
     async (req, res, next) => {
