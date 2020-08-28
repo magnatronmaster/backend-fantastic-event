@@ -1,10 +1,11 @@
 const express = require('express');
-const EventService = require('../services/event');
 
-const eventService = new EventService();
+//Services
+const EventService = require('../services/event');
 
 //Middleware
 const validationHandler = require('../utils/middleware/validationHandler');
+const multer = require('../utils/middleware/multer');
 
 //Schemas
 const { idOrganizationShcema } = require('../utils/schemas/organization');
@@ -16,7 +17,9 @@ const {
 
 function eventApi(app) {
   const router = express.Router();
+
   app.use('/api/event/', router);
+  const eventService = new EventService();
 
   router.get(
     '/:id_event',
@@ -60,6 +63,7 @@ function eventApi(app) {
 
   router.post(
     '/',
+    multer.single(),
     validationHandler(createEnvetSchema),
     async (req, res, next) => {
       const { body: event } = req;
@@ -83,6 +87,7 @@ function eventApi(app) {
 
   router.patch(
     '/',
+    multer.single(),
     validationHandler(updateEnvetSchema),
     validationHandler(idEventSchema, 'query'),
     async (req, res, next) => {
