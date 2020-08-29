@@ -1,6 +1,9 @@
 node_modules
 .env
+
+
+# GCP
 app.yaml
-.gcloudignore
-event-app-72617-7c6078650743.json
 cron.yaml
+.gcloudignore
+event-0196dcad9f97.json
