@@ -12,18 +12,19 @@ class SpeakerService {
   }
 
   async getSpeakers(id_event) {
-    const result = await this.mysqlLib.getAll({ idOrg: id_event });
+    const result = await this.mysqlLib.getAll({ id_event });
     return result || [];
   }
 
   async createSpeaker({ speaker }) {
     const result = await this.mysqlLib.create(speaker);
 
-    return result.id_event;
+    return result.isBoom ? result : result.id_speaker;
   }
 
   async updateSpeaker(id_speaker, speaker) {
     const result = await this.mysqlLib.update(speaker, id_speaker);
+
     return result || [];
   }
 

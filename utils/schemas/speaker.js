@@ -5,7 +5,7 @@ const id_speakerSchema = Joi.string().guid({ version: ['uuidv4'] });
 const name_speakerSchema = Joi.string().min(3).max(50);
 const biografhy_speakerSchema = Joi.string().min(2);
 const role_speakerSchema = Joi.string().min(3).max(50);
-const twitter_speakerSchema = Joi.string().min(3).max(50);
+const twitter_speakerSchema = Joi.string().uri();
 const photo_speakerSchema = Joi.string();
 
 const createSpeakerSchema = Joi.object({
@@ -13,7 +13,7 @@ const createSpeakerSchema = Joi.object({
   biografhy_speaker: biografhy_speakerSchema.required(),
   role_speaker: role_speakerSchema.required(),
   twitter_speaker: twitter_speakerSchema,
-  photo_speaker: photo_speakerSchema.required(),
+  photo_speaker: photo_speakerSchema,
   id_event: id_eventSchema.required(),
 });
 
