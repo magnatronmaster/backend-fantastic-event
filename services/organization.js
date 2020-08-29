@@ -1,6 +1,5 @@
 const MysqlLib = require('../lib/repository/MysqlLib');
 const Organization = require('../lib/models/organization');
-const { isBoom } = require('@hapi/boom');
 
 class OrganizationService {
   constructor() {
