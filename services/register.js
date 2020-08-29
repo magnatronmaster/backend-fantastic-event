@@ -2,24 +2,20 @@ const MysqlLib = require('../lib/repository/MysqlLib');
 const Register = require('../lib/models/register');
 
 class RegisterService {
-  constructor(){
+  constructor() {
     this.mysqlLib = new MysqlLib(Register);
   }
 
-  async getRegisters({ idEvent }){
-    const registers = await this.mysqlLib.getAll({ idEvent });
+  async getRegisters({ idEvent }) {
+    const registers = await this.mysqlLib.getAll({ id_event: idEvent });
     return registers || [];
   }
 
   async createRegister({ register }) {
-    const { email_register, idEvent } = register;
-    const createdRegisterId = await this.mysqlLib.create({
-      email_register,
-      idEvent,
-    });
+    const result = await this.mysqlLib.create(register);
 
-    return createdRegisterId;
+    return result.isBoom ? result : result.id_register;
   }
-};
+}
 
 module.exports = RegisterService;

@@ -11,7 +11,7 @@ const datetime_end_scheduleSchema = Joi.date().iso();
 const createScheduleSchema = Joi.object({
   title_schedule: title_scheduleSchema.required(),
   description_schedule: description_scheduleSchema.required(),
-  datetime_start_shedule: datetime_start_scheduleSchema.required(),
+  datetime_start_schedule: datetime_start_scheduleSchema.required(),
   datetime_end_shedule: datetime_end_scheduleSchema,
   id_event: id_eventSchema.required(),
   id_speaker: id_speakerSchema.required(),
@@ -20,7 +20,7 @@ const createScheduleSchema = Joi.object({
 const updateScheduleSchema = Joi.object({
   title_schedule: title_scheduleSchema,
   description_schedule: description_scheduleSchema,
-  datetime_start_shedule: datetime_start_scheduleSchema,
+  datetime_start_schedule: datetime_start_scheduleSchema,
   datetime_end_shedule: datetime_end_scheduleSchema,
 });
 
