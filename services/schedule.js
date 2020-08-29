@@ -5,15 +5,16 @@ const Speaker = require('../lib/models/speaker');
 class ScheduleService {
   constructor() {
     this.mysqlLib = new MysqlLib(Schedule);
+    this.join = [{ model: Speaker, as: 'Speaker' }];
   }
 
   async getSchedule(id_schedule) {
-    const result = await this.mysqlLib.get({ id_schedule });
+    const result = await this.mysqlLib.get({ id_schedule }, this.join);
     return result || [];
   }
 
   async getSchedules(id_event) {
-    const result = await this.mysqlLib.getAll({ id_event }, {}, { Speaker });
+    const result = await this.mysqlLib.getAll({ id_event }, {}, this.join);
     return result || [];
   }
 
@@ -25,7 +26,6 @@ class ScheduleService {
 
   async updateScheule(id_schedule, schedule) {
     const result = await this.mysqlLib.update(schedule, id_schedule);
-
     return result || [];
   }
 

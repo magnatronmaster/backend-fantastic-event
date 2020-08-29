@@ -96,7 +96,7 @@ function scheduleApi(app) {
       const { body: schedule } = req;
 
       try {
-        const result = await speakerService.updateSpeaker(
+        const result = await scheduleService.updateScheule(
           { id_schedule },
           schedule
         );
@@ -119,7 +119,7 @@ function scheduleApi(app) {
     async (req, res, next) => {
       const { id_schedule } = req.params;
       try {
-        const result = await speakerService.deleteSpeaker(id_schedule);
+        const result = await scheduleService.deleteSchedule(id_schedule);
 
         if (result.isBoom) next(result);
 
