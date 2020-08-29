@@ -1,54 +1,23 @@
-const nodemailer = require('nodemailer');
-const { pugEngine } = require('nodemailer-pug-engine');
-const { resolve } = require('path');
-const { config } = require('../../config');
+// const { format } = require('date-fns')
+const email = require('./email');
+// const EventService = require('../../services/event')
+// const eventService= new EventService();
 
-const email = async (
-  from= 'event.aplication@gmail.com',
-  to,
-  name,
-  date
-  ) => {
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
-      auth: {
-          type: 'OAuth2',
-          clientId: config.googleClientId,
-          clientSecret: config.googleClientSecret,
-      },
-    });
-
-    transporter.use('compile', pugEngine({
-      templateDir: resolve(__dirname + '/templates'),
-      pretty: true,
-    }));
-
-    const mailOptions = {
-      from, // sender address
-      to, // list of receivers
-      subject: 'Fantastic event', // Subject line
-      template: 'test',
-      ctx: {
-        name,
-        event: date,
-      },
-      auth: {
-        user: 'from',
-        refreshToken: config.googleRefreshToken,
-        accessToken: config.googleAccessToken,
-        expires: 1484314697598
-      },
-    }
-
-  // send mail with defined transport object
-  let info = await transporter.sendMail(mailOptions);
+function sendEmail(){
+  const info = email(
+      'event.aplication@gmail.com',
+      'luis.lazcanocruz@gmail.com',
+      'Luis',
+      '25/12/2020'
+  );
 
   console.log('Message sent: %s', info.messageId);
-  console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-};
+  // const events = eventService.getEvents({}, {where: date_start_event: });
+  // events.map((event) => {
+  //   event.date_start_event = format(new Date(event.date_start_event))
+  //   return event;
+  //  Here going mail event to send by person each mail
+  // })
+}
 
-email().catch(console.error);
-
-module.exports = email;
+module.exports = sendEmail;
