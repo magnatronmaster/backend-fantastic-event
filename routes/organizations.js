@@ -27,7 +27,10 @@ function organizationApi(app) {
     async (req, res, next) => {
       try {
         const { id_org } = req.params;
-        const organization = await organizationService.getOrganization(id_org);
+        const organization = await organizationService.getOrganization({
+          id_org,
+        });
+        if (organization.isBoom) next(organization);
         res.status(200).json({
           data: organization,
           message: 'Organization listed',
@@ -47,6 +50,7 @@ function organizationApi(app) {
         const organizations = await organizationService.getOrganizations({
           idUser: id_user,
         });
+        if (organizations.isBoom) next(organizations);
         res.status(200).json({
           data: organizations,
           message: 'Organizations listed',
@@ -93,6 +97,7 @@ function organizationApi(app) {
             organization,
           }
         );
+        if (updatedOrganization.isBoom) next(updatedOrganization);
         res.status(201).json({
           data: updatedOrganization,
           message: 'Organization updated',
@@ -114,6 +119,7 @@ function organizationApi(app) {
             organizationId: id_org,
           }
         );
+        if (deletedOrganization.isBoom) next(deletedOrganization);
         res.status(201).json({
           data: deletedOrganization,
           message: 'Organization deleted',
