@@ -2,4 +2,3 @@ node_modules
 .env
 app.yaml
 .gcloudignore
-event-app-72617-7c6078650743.json
