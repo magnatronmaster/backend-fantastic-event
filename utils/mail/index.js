@@ -1,54 +1,23 @@
-const nodemailer = require('nodemailer');
-const { pugEngine } = require('nodemailer-pug-engine');
-const { resolve } = require('path');
-const { config } = require('../../config');
+// const { format } = require('date-fns')
+const email = require('./email');
+// const EventService = require('../../services/event')
+// const eventService= new EventService();
 
-const email = async () => {
-
-  let transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
-    auth: {
-        type: 'OAuth2',
-        clientId: config.googleClientId,
-        clientSecret: config.googleClientSecret,
-    },
-  });
-
-  transporter.use('compile', pugEngine({
-    templateDir: resolve(__dirname + '/templates'),
-    pretty: true,
-  }));
-
-  const mailOptions = {
-    from: 'event.aplication@gmail.com', // sender address
-    to: 'luis.lazcanocruz@gmail.com', // list of receivers
-    subject: 'Fantastic event', // Subject line
-    text: 'Hello world!!', // plain text body
-    template: 'test',
-    ctx: {
-      name: 'Luis',
-      event: '10/12/2020'
-    },
-    auth: {
-      user: 'event.aplication@gmail.com',
-      refreshToken: config.googleRefreshToken,
-      accessToken: config.googleAccessToken,
-      expires: 1484314697598
-    },
-  }
-
-  // send mail with defined transport object
-  let info = await transporter.sendMail(mailOptions);
+function sendEmail(){
+  const info = email(
+      'event.aplication@gmail.com',
+      'luis.lazcanocruz@gmail.com',
+      'Luis',
+      '25/12/2020'
+  );
 
   console.log('Message sent: %s', info.messageId);
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-  // Preview only available when sending through an Ethereal account
-  console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-  // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-};
+  // const events = eventService.getEvents({}, {where: date_start_event: });
+  // events.map((event) => {
+  //   event.date_start_event = format(new Date(event.date_start_event))
+  //   return event;
+  //  Here going mail event to send by person each mail
+  // })
+}
 
-email().catch(console.error);
-
-module.exports = email;
+module.exports = sendEmail;
