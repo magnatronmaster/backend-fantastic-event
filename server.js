@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const sponsorsApi = require('./routes/sponsors');
 const usersApi = require('./routes/users');
@@ -18,6 +19,14 @@ const {
 } = require('./utils/middleware/errorHandlers');
 
 const app = express();
+
+// //cors
+if (config.dev === 'production') {
+  const corsOptions = { origin: config.urlFrontend };
+  app.use(cors(corsOptions));
+} else {
+  app.use(cors());
+}
 
 // body parser
 app.use(bodyParser.json());

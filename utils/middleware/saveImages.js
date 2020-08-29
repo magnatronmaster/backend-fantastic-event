@@ -4,8 +4,8 @@ const path = require('path');
 const { config } = require('../../config');
 
 const storage = new Storage({
-  keyFilename: path.join(__dirname, '../../event-app-72617-7c6078650743.json'),
-  projectId: 'event-app-72617',
+  keyFilename: path.join(__dirname, '../../event-0196dcad9f97.json'),
+  projectId: config.googleCloudProject,
 });
 
 function sendUploadToGCS(req, res, next) {
