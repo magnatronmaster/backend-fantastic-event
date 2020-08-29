@@ -1,13 +1,15 @@
 const MysqlLib = require('../lib/repository/MysqlLib');
 const Organization = require('../lib/models/organization');
+const Event = require('../lib/models/event');
 
 class OrganizationService {
   constructor() {
     this.mysqlLib = new MysqlLib(Organization);
+    this.join = [{ model: Event, as: 'Events' }];
   }
 
   async getOrganization({ id_org }) {
-    const organization = await this.mysqlLib.get(id_org);
+    const organization = await this.mysqlLib.get({ id_org }, this.join);
     return organization || [];
   }
 
@@ -17,14 +19,8 @@ class OrganizationService {
   }
 
   async createOrganization({ organization }) {
-    const { name_org, description_org, idUser } = organization;
-    const result = await this.mysqlLib.create({
-      name_org,
-      description_org,
-      idUser,
-    });
-
-    return result.id_org;
+    const result = await this.mysqlLib.create(organization);
+    return result.isBoom ? result : result.id_org;
   }
 
   async updateOrganization({ organizationId, organization }) {
