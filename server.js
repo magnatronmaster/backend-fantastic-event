@@ -7,6 +7,7 @@ const organizationsApi = require('./routes/organizations');
 const authApi = require('./routes/auth');
 const eventsApi = require('./routes/events');
 const speakersApi = require('./routes/spakers');
+const schedulesApi = require('./routes/schedules');
 
 const { config } = require('./config');
 
@@ -29,6 +30,7 @@ usersApi(app);
 organizationsApi(app);
 eventsApi(app);
 speakersApi(app);
+schedulesApi(app);
 
 // Errors middleware
 app.use(logErrors);
