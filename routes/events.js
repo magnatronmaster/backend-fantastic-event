@@ -1,5 +1,4 @@
 const express = require('express');
-const sendEmail = require('../utils/mail/index');
 
 //Services
 const EventService = require('../services/event');
@@ -129,14 +128,6 @@ function eventApi(app) {
       }
     }
   );
-
-  router.get(
-    '/mail/daily',
-    (req, res, next) => {
-      sendEmail()
-      res.status(200).end();
-    }
-  )
 }
 
 module.exports = eventApi;

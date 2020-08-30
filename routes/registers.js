@@ -7,6 +7,8 @@ const RegisterService = require('../services/register');
 const validationHandler = require('../utils/middleware/validationHandler');
 const multer = require('../utils/middleware/multer');
 
+const sendEmail = require('../utils/mail/index');
+
 //Schemas
 const { createRegisterSchema } = require('../utils/schemas/register');
 
@@ -36,6 +38,19 @@ function registerApi(app) {
         });
       } catch (error) {
         next(error);
+      }
+    }
+  );
+
+  router.get(
+    '/mail/daily',
+    async (req, res, next) => {
+
+      try{
+        const data= await sendEmail()
+        res.status(200).json({data, message: 'Mails Send'});
+      } catch (error){
+        next(error)
       }
     }
   );
