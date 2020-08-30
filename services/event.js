@@ -4,6 +4,7 @@ const Schedule = require('../lib/models/schedule');
 const Organization = require('../lib/models/organization');
 const Sponsor = require('../lib/models/sponsor');
 const Speaker = require('../lib/models/speaker');
+const Register = require('../lib/models/register');
 class EventService {
   constructor() {
     this.mysqlLib = new MysqlLib(Event);
@@ -27,7 +28,16 @@ class EventService {
       this.joins
     );
     return result || [];
-  }
+  };
+
+  async getEventsMail(where) {
+    const result = await this.mysqlLib.getAll(
+      where,
+      {},
+      [{ model: Register, as: 'Registers' }],
+    );
+    return result || [];
+  };
 
   async createEvent({ event }) {
     const result = await this.mysqlLib.create(event);

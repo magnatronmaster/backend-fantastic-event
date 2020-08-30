@@ -2,6 +2,7 @@ const express = require('express');
 
 //Services
 const EventService = require('../services/event');
+const sendEmail = require('../utils/mail/index');
 
 //Middleware
 const validationHandler = require('../utils/middleware/validationHandler');
@@ -125,6 +126,20 @@ function eventApi(app) {
         });
       } catch (error) {
         next(error);
+      }
+    }
+  );
+
+
+  router.get(
+    '/mail/daily',
+    async (req, res, next) => {
+
+      try{
+        const data= await sendEmail()
+        res.status(200).json({data, message: 'Mails Send'});
+      } catch (error){
+        next(error)
       }
     }
   );
