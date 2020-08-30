@@ -1,5 +1,11 @@
 const express = require('express');
+
 const UsersService = require('../services/user');
+
+const validationHandler = require('../utils/middleware/validationHandler');
+
+//Schemas
+const { idUserShcema } = require('../utils/schemas/user');
 
 function UsersApi(app) {
   const router = express.Router();
@@ -7,19 +13,25 @@ function UsersApi(app) {
 
   const usersService = new UsersService();
 
-  router.get('/', async function (req, res, next) {
-    try {
-      const users = await usersService.GetUser();
+  router.get(
+    '/:id_user',
+    validationHandler(idUserShcema, 'params'),
+    async (req, res, next) => {
+      try {
+        const { id_user } = req.params;
+        const user = await usersService.GetUser(id_user);
 
-      res.status(200).json({
-        status: 200,
-        data: users,
-        message: 'users listed',
-      });
-    } catch (err) {
-      next(err);
+        if (user.isBoom) next(user);
+
+        res.status(200).json({
+          data: user,
+          message: 'user listed',
+        });
+      } catch (err) {
+        next(err);
+      }
     }
-  });
+  );
 
   router.post('/', async (req, res, next) => {
     const { body: user } = req;
