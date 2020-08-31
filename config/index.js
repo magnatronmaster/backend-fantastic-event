@@ -11,6 +11,7 @@ const config = {
   googleCloudProject: process.env.GOOGLE_CLOUD_PROJECT,
   googleCloudBucket: process.env.GOOGLE_CLOUD_BUCKET,
   authJwtSecret: process.env.AUTH_JWT_SECRET,
+  email: process.env.EMAIL,
   googleClientId: process.env.GOOGLE_CLIENT_ID,
   googleClientSecret: process.env.GOOGLE_CLIENT_SECRET,
   googleRefreshToken: process.env.GOOGLE_REFRESH_TOKEN,

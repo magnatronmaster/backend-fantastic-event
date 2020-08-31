@@ -5,7 +5,33 @@ const eventService= new EventService();
 const { Op } =require('sequelize');
 
 
-function sendEmail(){
+async function sendEmail(){
+
+  const today = format(new Date(), 'yyyy-MM-dd');
+  const afterTomorrow = format(add(new Date(), { days: 2 }), 'yyyy-MM-dd')
+
+  const events = await eventService.getEventsMail({
+    date_start_event: {
+      [Op.between]: [ today, afterTomorrow ]
+    }
+  });
+
+  events.map((event) => {
+    const nameEvent = event.name_event;
+    const decriptionEvent = event.description_event;
+    const initialDate = event.date_start_event;
+    event.Registers.map((user) => {
+      email(
+        user.email_register,
+        user.name_register,
+        initialDate,
+      )
+    })
+  })
+
+  return 'Completed';
+}
+
 //   const info = email(
 //       'event.aplication@gmail.com',
 //       'luis.lazcanocruz@gmail.com',
@@ -14,20 +40,5 @@ function sendEmail(){
 //   );
 
 //   console.log('Message sent: %s', info.messageId);
-  const today = format(new Date(), 'yyyy-MM-dd');
-  const afterTomorrow = format(add(new Date(), { days: 2 }), 'yyyy-MM-dd')
-
-  const events = eventService.getEventsMail({
-    date_start_event: {
-      [Op.between]: [ today, afterTomorrow ]
-    }
-  });
-  // events.map((event) => {
-  //   event.date_start_event = format(new Date(event.date_start_event))
-  //   return event;
-  //  Here going mail event to send by person each mail
-  // })
-  return events;
-}
 
 module.exports = sendEmail;
