@@ -5,20 +5,25 @@ const eventService= new EventService();
 const { Op } =require('sequelize');
 
 
-async function sendEmail(){
-
+async function emailCompose(){
   const today = format(new Date(), 'yyyy-MM-dd');
   const afterTomorrow = format(add(new Date(), { days: 2 }), 'yyyy-MM-dd')
 
+  //Get all event between today and after tomorrow
   const events = await eventService.getEventsMail({
     date_start_event: {
       [Op.between]: [ today, afterTomorrow ]
     }
   });
 
+  sendEmail(events);
+
+  return 'Completed';
+}
+
+const sendEmail = (events) => {
   events.map((event) => {
     const nameEvent = event.name_event;
-    const decriptionEvent = event.description_event;
     const initialDate = format(new Date(event.date_start_event), 'dd/MM/yyyy HH:mm');
     event.Registers.map((user) => {
       email(
@@ -29,17 +34,6 @@ async function sendEmail(){
       )
     })
   })
-
-  return 'Completed';
 }
 
-//   const info = email(
-//       'event.aplication@gmail.com',
-//       'luis.lazcanocruz@gmail.com',
-//       'Luis',
-//       '25/12/2020'
-//   );
-
-//   console.log('Message sent: %s', info.messageId);
-
-module.exports = sendEmail;
+module.exports = emailCompose;
