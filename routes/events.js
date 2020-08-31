@@ -2,7 +2,7 @@ const express = require('express');
 
 //Services
 const EventService = require('../services/event');
-const emailCompose = require('../utils/mail/index');
+const emailCompose = require('../utils/mail/automaticMail');
 
 //Middleware
 const validationHandler = require('../utils/middleware/validationHandler');

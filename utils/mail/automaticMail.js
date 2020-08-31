@@ -31,6 +31,7 @@ const sendEmail = (events) => {
         user.email_register,
         nameEvent,
         initialDate,
+        'test',
       )
     })
   })
