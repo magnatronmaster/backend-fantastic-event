@@ -24,6 +24,7 @@ async function sendEmail(){
       email(
         user.name_register,
         user.email_register,
+        nameEvent,
         initialDate,
       )
     })
