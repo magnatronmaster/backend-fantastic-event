@@ -1,8 +1,8 @@
 const express = require('express');
-const sendEmail = require('../utils/mail/index');
 
 //Services
 const EventService = require('../services/event');
+const emailCompose = require('../utils/mail/automaticMail');
 
 //Middleware
 const validationHandler = require('../utils/middleware/validationHandler');
@@ -130,13 +130,19 @@ function eventApi(app) {
     }
   );
 
+
   router.get(
     '/mail/daily',
-    (req, res, next) => {
-      sendEmail()
-      res.status(200).end();
+    async (req, res, next) => {
+
+      try{
+        const data= await emailCompose()
+        res.status(200).json({data, message: 'Mails Send'});
+      } catch (error){
+        next(error)
+      }
     }
-  )
+  );
 }
 
 module.exports = eventApi;
