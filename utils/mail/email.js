@@ -3,7 +3,7 @@ const { pugEngine } = require('nodemailer-pug-engine');
 const { resolve } = require('path');
 const { config } = require('../../config');
 
-const email = async( to, name, date ) => {
+const email = async( name, to, date ) => {
   const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,

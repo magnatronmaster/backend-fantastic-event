@@ -19,11 +19,11 @@ async function sendEmail(){
   events.map((event) => {
     const nameEvent = event.name_event;
     const decriptionEvent = event.description_event;
-    const initialDate = event.date_start_event;
+    const initialDate = format(new Date(event.date_start_event), 'dd/MM/yyyy HH:mm');
     event.Registers.map((user) => {
       email(
-        user.email_register,
         user.name_register,
+        user.email_register,
         initialDate,
       )
     })
