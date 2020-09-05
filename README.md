@@ -59,7 +59,7 @@ https://documenter.getpostman.com/view/6233282/TVCZbBos
 
 ## Authors ✒️
 - **Julian Builes** - _Fullstack Developer_ - [juanchobuiles](https://github.com/juanchobuiles)
-- **Luis Lazcano** - _Backend Developer_ - [Luis-Lazcano](https://github.com/Luis-Lazcano)
+- **Luis Lazcano** - _Backend Developer_ - [lazcanocode](https://github.com/lazcanocode)
 
 ## License 📄
 
